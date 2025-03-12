@@ -1,7 +1,5 @@
 # created by virtualenv automatically
 /bin
 /lib
-/lutnia
 pyvenv.cfg
-db.sqlite3
 notatki.py
