@@ -1,0 +1,17 @@
+{% extends "lutnia_app/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card">
+        <form method="post">
+        {% csrf_token %}
+            <div class="card-header">
+                <h2 class="card-text text-center">Rejestracja</h2>
+            </div>
+            <div class="card-body">
+                {% crispy registerform %}
+                <button type="submit" class="btn btn-primary">Zarejestruj</button>
+            </div>
+        </form>
+</div>
+{% endblock content %}

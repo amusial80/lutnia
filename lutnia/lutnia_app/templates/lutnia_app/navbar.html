@@ -1,0 +1,59 @@
+{% load static %}
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url '' %}"><img src="{% static '/logo/lutnia_logo.png' %}" alt="lutnia_logo.png" width="30" height="24">
+    <small style="padding-right: 5%;">Lutnia</small>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Lutnia</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            {% if user.is_authenticated %}
+            <a class="nav-link disabled" aria-current="page" href="{% url 'my_login' %}">Zalogowany jako: {{user.last_name}} {{user.first_name}}</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'user_logout' %}">Wyloguj</a>
+            <a class="nav-link" href="{% url 'profile' %}">Profil</a>
+            <a class="nav-link" href="{% url 'default_table' %}">Tabele</a>
+            <a class="nav-link" href="{% url 'excersises' %}">Trening</a>
+            <a class="nav-link" href="{% url 'stats' %}">Statystyki</a>
+            {% else %}
+            <a class="nav-link active" aria-current="page" href="{% url 'my_login' %}">Zaloguj</a>
+            {% endif %}
+            <a class="nav-link" aria-current="page" href="{% url 'youtube' %}">Video</a>
+            <a class="nav-link" aria-current="page" href="{% url 'event_new' %}">Rezerwacja</a>
+            <a class="nav-link" aria-current="page" href="{% url 'calendar' %}">Kalendarz</a>
+            </li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Linki
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <a class="dropdown-item" aria-current="page" href="https://cuescore.com/akademiasnookeratslutnia" target="_blank">Cue Score</a>
+              <li><hr class="dropdown-divider"></li>
+              <a class="dropdown-item" aria-current="page" href="https://pzbil.pl/kluby/814/kts-lutnia-snookerzone-konstantynow-lodzki/" target="_blank">PZBil</a>
+              <li><hr class="dropdown-divider"></li>
+              <a class="dropdown-item" aria-current="page" href="https://snooker.pl/turnieje/pors-4-konstantynow-lodzki/" target="_blank">PORS</a>
+              <li><hr class="dropdown-divider"></li>
+              <a class="dropdown-item" aria-current="page" href="https://pfss.pl/" target="_blank">PFSS</a>
+
+
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex mt-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+<br>
+<br>

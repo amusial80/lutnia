@@ -1,0 +1,68 @@
+{% extends "lutnia_app/base.html" %}
+
+{% block content %}
+<div class="container">
+    <hr>
+    <div class="btn-group d-flex">
+    <a class="btn btn-outline-dark" href="{% url 'day_view' year=year month=month day=prev_day %}">Wczoraj</a>
+    <a class="btn btn-outline-dark" href="{% url 'event_new' %}">Rezerwacja</a>
+    <a class="btn btn-outline-dark" href="{% url 'day_view' year=year month=month day=next_day %}">Jutro</a>
+    </div>
+    <hr>
+    <h3 class="text-center my-3">{{today}}</h3>
+    {% for h in hourly_events.items%}
+    
+    {% endfor %}
+    {% for ev in events %}
+        {% if ev.get_place_display == "Moniuszki" %}
+            {% if ev.table == "1" %}
+                {{ev.table}}
+                {{ev.start_time}}
+            {% else %}
+                {{ev.table}}
+            {% endif %}
+        {% else %}
+            {{ev.get_place_display}}
+        {% endif %}
+    {% endfor %}
+    <table class="table table-striped table-bordered text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Godzina</th>
+            {% for stol in "1234567" %}
+                <th>{{ stol }}</th>  <!-- Dynamically render a header for each table -->
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for hour, events in hourly_events.items %}
+            <tr>
+
+                <td class="table-dark fw-bold">{{ hour }}</td>
+                
+                {% for stol in "1234567" %}
+                    {% with event_found=False %}
+                        {% for e in events %}
+                            {% if e.event.table == stol and not event_found %}
+                                <td rowspan="{{ e.rowspan }}">
+                                       <a href="{{ e.edit_url }}" class="event-dot link-underline link-underline-opacity-0" data-bs-toggle="tooltip"
+                                       title="{{ e.event.user.last_name }} {{ e.event.user.first_name }} - {{ e.event.get_place_display }} - {{ e.event.get_table_display }} - {{ e.event.table }} - ({{ e.event.start_time|time:"H:i" }} - {{ e.event.end_time|time:"H:i" }})">
+                                        &#128994;
+                                    </a>
+                                </td>
+                                {% with event_found=True %}
+                                {% endwith %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if not event_found %}
+                             <!-- Only render an empty <td> if no event was found for this table -->
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

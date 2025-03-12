@@ -1,0 +1,24 @@
+{% extends "lutnia_app/base.html" %}
+{% load crispy_forms_tags %} 
+
+{% block content %}
+<div class="card">
+    <form method="post">
+    {% csrf_token %}
+        
+            <div class="card-header">
+                <h6 class="card-text text-center">Logowanie</h6>
+            </div>
+            <div class="card-body">
+                {% crispy loginform %}
+                <button type="submit" class="btn btn-primary">Zaloguj</button>
+            </div>
+        
+    </form>
+    <a href="accounts/password_reset">Resetuj haslo</a>
+    <div class="card-footer text-body-secondary">
+        <a class="btn btn-secondary" href="{% url 'register' %}">Nie masz konta? Zarejestruj sie</a>
+    </div>
+</div>
+
+{% endblock content %}

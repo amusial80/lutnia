@@ -1,0 +1,79 @@
+{% extends "lutnia_app/base.html" %}
+{% load custom_filters %}
+{% block content %}
+<style>
+table {
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+
+
+</style>
+<div class="card">
+    <hr>
+    <div class="menu btn-group btn-group" role="group" aria-label="Small button group">
+    <a class="btn btn-outline-dark" href="{% url 'year_view' year=selected_date.year %}">Rok</a>
+    <a class="btn btn-outline-dark" href="{% url 'event_new' %}">Rezerwacja</a>
+    <a class="btn btn-outline-dark" href="{% url 'day_view' year=selected_date.year month=selected_date.month day=selected_date.day %}">Dzien</a>
+    </div>
+<hr>
+    <h2 class="text-center">{{ month_name }} {{ year }}</h2>
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'month_view' year=prev_month|slice:":4" month=prev_month|slice:"5:" %}" class="btn btn-outline-dark">Poprzedni miesiac</a>
+        <a href="{% url 'month_view' year=next_month|slice:":4" month=next_month|slice:"5:" %}" class="btn btn-outline-dark">Nastepny miesiac</a>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Pon</th>
+                <th>Wto</th>
+                <th>Sro</th>
+                <th>Czw</th>
+                <th>Pia</th>
+                <th>Sob</th>
+                <th>Nie</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for week in weeks %}
+                <tr>
+                    {% for day in week %}
+                        {% if day == 0 %}
+                            <td style="background-color: whitesmoke;"></td>  {# Empty cells for days outside the current month #}
+                        {% else %}
+                            <td>
+                                <a class="btn btn-success btn-sm" href="{% url 'day_view' year=year month=month day=day %}">{{ day }}</a>
+                                <div class="card">
+                                {% if day in days_with_events %}
+                                    <div class="container">
+                                    {% for event in days_with_events|get_item:day|default:""|dictsort:"start_time" %}
+                                        <button type="button" class="btn btn-sm btn-outline-success" 
+                                                data-bs-toggle="modal" data-bs-target="#eventModal" 
+                                                data-event-user="{{ event.user.last_name }} {{ event.user.first_name }}"
+                                                data-event-user-id="{{ event.user.id }}"
+                                                data-event-place="{{ event.place }}"
+                                                data-event-table="{{ event.table }}"
+                                                data-event-time="{{ event.start_time }} - {{ event.end_time }}"
+                                                data-event-edit-url="{{ event.edit_url }}"
+                                                data-bs-toggle="tooltip"
+                                                title="{{ event.user.last_name }} {{ event.user.first_name }} - {{ event.place }} - {{ event.table }} - ({{ event.start_time }} - {{ event.end_time }})"
+                                                >
+                                            {{ event.start_time|time:"H:i" }}
+                                        </button>
+                                    {% endfor %}
+                                    </div>
+                                {% endif %}
+                                </div>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+{% include "lutnia_app/addons/modal.html" %}
+
+{% endblock %}

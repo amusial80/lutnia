@@ -1,0 +1,33 @@
+{% extends "lutnia_app/base.html" %}
+{% block content %}
+<div class="card text-center">
+    <div class="card-header shadow-lg">
+        <div class="card-title d-grid"><a href="{% url 'edit_profile' %}" class="btn btn-outline-info shadow-lg">Edytuj Profil</a></div>
+    </div>
+    
+    <div class="card-body shadow-lg">
+        
+        <img src="{{ user.profile.image.url }}" class="card-img-top rounded" alt="default_avatar" style="height: auto; width: 20%;">
+        
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Imie: {{ user.first_name }}</li>
+            <li class="list-group-item">Nazwisko: {{ user.last_name }}</li>
+            <li class="list-group-item"><strong>Urzytkownik:</strong> {{ user.username }}</li>
+            <li class="list-group-item">Email: {{ user.email }}</li>
+            <li class="list-group-item">Numer ID: {{ user.id }}</li>
+            <li class="list-group-item">Dolaczyl: {{ user.date_joined }}</li>
+            <li class="list-group-item">Ostatnio zalogowany: {{ user.last_login }}</li>
+            <li class="list-group-item">KOD: {{user.profile.user_code}}</li>
+            <li class="list-group-item">Telefon: {{user.profile.phone_number}}</li>
+        </ul>
+
+    </div>
+    <div class="card-footer text-body-secondary d-grid">
+        <div class="btn-group">
+        <a class="btn btn-outline-secondary" href="{% url 'default_table' %}">Tabele</a>
+        <a class="btn btn-outline-secondary" href="{% url 'stats' %}">Statystyki</a>
+        <a class="btn btn-outline-secondary" href="{% url 'excersises' %}">Cwiczenia</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

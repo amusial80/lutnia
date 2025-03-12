@@ -1,0 +1,60 @@
+{% extends "lutnia_app/base.html" %}
+{% block content %}
+<hr>
+<div class="menu btn-group btn-group" role="group" aria-label="Small button group">
+  <a class="btn btn-outline-success" href="{% url 'calendar' %}?{{ prev_month }}"> Poprzedni miesiac </a>
+  <a class="btn btn-outline-secondary" href="{% url 'event_new' %}">Rezerwacja</a>
+	<a class="btn btn-outline-success" href="{% url 'calendar' %}?{{ next_month }}"> Nastepny miesiac </a>
+</div>
+<hr>
+{{ calendar|safe }}
+<style>
+
+.calendar {
+  width: 100%;
+  margin: auto;
+  font-size: 13px;
+}
+.menu {
+  width: 100%;
+}
+
+.calendar tr, .calendar td {
+  border: 1px solid black;
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.calendar td {
+  width: 200px;
+  height: 150px;
+  padding: 20px 0px 0px 5px;
+}
+
+.month {
+  font-size: 25px;
+}
+
+.date {
+  font-size: 16px;
+}
+
+ul {
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+</style>
+
+{% endblock content %}

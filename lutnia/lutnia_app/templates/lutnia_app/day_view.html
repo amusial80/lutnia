@@ -1,0 +1,50 @@
+{% extends "lutnia_app/base.html" %}
+
+{% block content %}
+
+<div class="card text-center">
+  
+  <div class="menu btn-group btn-group" role="group" aria-label="Small button group">
+  <a class="btn btn-outline-dark" href="{% url 'month_view' year=selected_date.year month=selected_date.month %}">Miesiac</a>
+  <a class="btn btn-outline-dark" href="{% url 'event_new' %}">Rezerwacja</a>
+  <a class="btn btn-outline-dark" href="{% url 'year_view' year=selected_date.year %}">Rok</a>
+  </div>
+  <hr>
+    <h2>Harmonogram dnia: {{ selected_date }}</h2>
+    <hr>
+    <div class="menu btn-group btn-group" role="group" aria-label="Day Navigation">
+        <a class="btn btn-outline-dark" href="{% url 'day_view' year=prev_day.year month=prev_day.month day=prev_day.day %}">Poprzedni dzien</a>
+        <a class="btn btn-outline-dark" href="{% url 'day_view' year=next_day.year month=next_day.month day=next_day.day %}">Nastepny dzien</a>
+    </div>
+    <hr>
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Godzina</th>
+            <th>Rezerwacje</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for hour, events in hourly_events.items %}
+    <tr>
+    <td>{{ hour|time:"H:i" }}</td>
+    <td>
+    {% if events %}
+    <ul>
+    {% for e in events %}   
+    <a href="{{ e.edit_url }}" class="event-dot link-underline link-underline-opacity-0" 
+        data-bs-toggle="tooltip" title="{{ e.event.user.last_name }} {{ e.event.user.first_name }} - {{ e.event.get_place_display }} - {{ e.event.get_table_display }} - ({{ e.event.start_time|time:"H:i" }} - {{ e.event.end_time|time:"H:i" }})">
+        &#128994;
+    </a>
+    {% endfor %}
+    </ul>
+    {% else %}
+        
+    {% endif %}
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

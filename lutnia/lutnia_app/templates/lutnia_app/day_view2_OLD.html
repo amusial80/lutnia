@@ -1,0 +1,83 @@
+{% extends "lutnia_app/base.html" %}
+
+{% block content %}
+<div class="card text-center">
+     <hr>
+    {{today|time:"H:i"}}
+    <hr>
+    {{today|date:"Y-m-d"}}
+    <hr>
+    {{godziny}}
+    <hr>
+    {{hourly_events}}
+    <hr>
+    {% for event in events %}
+    <div class="card">
+    <p>{{event.user}}</p>
+    <p>{{event.get_bookingtype_display}}</p>
+    <p>{{event.get_place_display}}</p>
+    <p>{{event.get_table_display}}</p>
+    <p>{{event.start_time}}</p>
+    <p>{{event.end_time}}</p>
+    {{ event.get_html_url|safe }}
+    </div>
+    {% endfor %} 
+    <table class="table table-striped table-bordered">
+    <div>Menu</div>
+    <thead>
+        <tr>
+            <th>Godzina</th>
+            <th>Pon</th>
+            <th>Wt</th>
+            <th>Sr</th>
+            <th>Czw</th>
+            <th>Pt</th>
+            <th>Sob</th>
+            <th>Nie</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for hour, events in hourly_events.items %}
+    <tr>
+    <td class="table-dark">{{ hour }}</td>
+    <td>
+    {% if events %}
+    <ul>
+    {% for e in events %}   
+    <div class="card" style="max-width: 10rem;"><a class="btn" href="{{e.edit_url}}">
+      {{ e.event.user.last_name }} {{e.event.user.first_name}}
+      
+        <small class="card-title">{{ e.event.start_time|time:"H:i" }} - {{ e.event.end_time|time:"H:i" }}</small>
+        <small class="card-text">({{ e.duration }})</small>
+      
+      </a>
+    </div>
+    {% endfor %}
+    </ul>
+    {% else %}
+    {% endif %}
+    </td>
+    <td>
+    <p>Wt booking</p>
+    </td>
+    <td>
+    <p>Sr booking</p>
+    </td>
+    <td>
+    <p>Czw booking</p>
+    </td>
+    <td>
+    <p>Pt booking</p>
+    </td>
+    <td>
+    <p>Sob booking</p>
+    </td>
+    <td>
+    <p>Nie booking</p>
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

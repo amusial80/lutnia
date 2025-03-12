@@ -1,0 +1,26 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: james@lutnia.pl
+Date: Wed, 26 Feb 2025 14:07:14 -0000
+Message-ID: 
+ <174057883495.65343.4660119329916551067@k8s-debian-shu.adammusial.internet-box.ch>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/accounts/reset/NQ/clu4k2-b543e077e6e479d37d0f6d73d704681e/
+
+Your username, in case you’ve forgotten: piaga
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

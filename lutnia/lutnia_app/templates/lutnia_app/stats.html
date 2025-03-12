@@ -1,0 +1,85 @@
+{% extends "lutnia_app/base.html" %}
+{% block content %}
+<h1>W budowie</h1>
+<h5>Do uzgodnienia</h5>
+
+<ul>
+    <li>Ilosc godzin w tygodniu lub miesiacu</li>
+    <li>Ilosc cwiczen</li>
+    <li>Lista tabel w cwiczeniach</li>
+    <li>Staty na dana tabele. np: tabela nr1 ilosc podejsc lub/oraz ilosc thafien</li>
+    <li>Procent trafien na dana tabele</li>
+    <li>Sparingi? np. ilosc frejmow i kto wygral</li>
+</ul>
+<div class="card">
+    <p class="card-header">Przykładowa tabela z ćwiczeń</p>
+    <table class="table">
+    <thead>
+    <th>Ilość godzin</th>
+    <th>Ilość ćwiczeń</th>
+    <th>Ilość podejść</th>
+    <th>Ilość trafień</th>
+    <th>Procent</th>
+    </thead>
+    <tbody>
+        <td>3</td>
+        <td>1</td>
+        <td>1</td>
+        <td>3</td>
+        <td>90%</td>
+    </tbody>
+    </table> 
+</div>
+
+<p>Pewnie jakies grafy typu pie chart albo cos w tym stylu zeby pokazac staty</p>
+
+
+<h5>Jesli jest jakis turniej mozna rowniez dodac tabele zawodnikow i staty z meczow</h5>
+<div class="card">
+    <p class="card-header">Przykładowa tabela turnieju</p>
+  <table class="table table-bordered">
+    <tbody>
+        <tr>
+            <td>zawodnik 1</td>
+            <td rowspan="2">wygrany</td>
+        </tr>
+        <tr>
+            <td>zawodnik 2</td>
+        </tr>
+        
+        <tr>
+            <td>zawodnik 3</td>
+            <td rowspan="2">wygrany</td>
+            <td rowspan="4">wygrany</td>
+        </tr>
+        <tr>
+            <td>zawodnik 4</td>
+        </tr>
+        <tr>
+            
+        </tr>
+    </tbody>
+</table>  
+</div>
+<hr>
+<div class="card">
+    <p class="card-header">Przykładowa tabela z meczu</p>
+  <table class="table">
+    <thead>
+        <th>Mecz</th>
+        <th>zawodnik 1</th>
+        <th>zawodnik 2</th>
+        <th>Frame</th>
+        <th>Wynik</th>    
+    </thead>
+    <tbody>
+        <td>PORS3</td>
+        <td>Zenek</td>
+        <td>Karol</td>
+        <td>1</td>
+        <td>65-38</td>
+    </tbody>
+</table>  
+</div>
+
+{% endblock content %}
