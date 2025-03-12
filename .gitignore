@@ -1,0 +1,7 @@
+/.vscode
+/bin
+/include
+/lib
+/pyvenv.cfg
+/venv
+/lib64
