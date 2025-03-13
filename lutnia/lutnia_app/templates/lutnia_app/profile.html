@@ -1,32 +1,69 @@
 {% extends "lutnia_app/base.html" %}
 {% block content %}
-<div class="card text-center">
-    <div class="card-header shadow-lg">
-        <div class="card-title d-grid"><a href="{% url 'edit_profile' %}" class="btn btn-outline-info shadow-lg">Edytuj Profil</a></div>
-    </div>
-    
-    <div class="card-body shadow-lg">
-        
-        <img src="{{ user.profile.image.url }}" class="card-img-top rounded" alt="default_avatar" style="height: auto; width: 20%;">
-        
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Imie: {{ user.first_name }}</li>
-            <li class="list-group-item">Nazwisko: {{ user.last_name }}</li>
-            <li class="list-group-item"><strong>Urzytkownik:</strong> {{ user.username }}</li>
-            <li class="list-group-item">Email: {{ user.email }}</li>
-            <li class="list-group-item">Numer ID: {{ user.id }}</li>
-            <li class="list-group-item">Dolaczyl: {{ user.date_joined }}</li>
-            <li class="list-group-item">Ostatnio zalogowany: {{ user.last_login }}</li>
-            <li class="list-group-item">KOD: {{user.profile.user_code}}</li>
-            <li class="list-group-item">Telefon: {{user.profile.phone_number}}</li>
-        </ul>
 
-    </div>
-    <div class="card-footer text-body-secondary d-grid">
-        <div class="btn-group">
-        <a class="btn btn-outline-secondary" href="{% url 'default_table' %}">Tabele</a>
-        <a class="btn btn-outline-secondary" href="{% url 'stats' %}">Statystyki</a>
-        <a class="btn btn-outline-secondary" href="{% url 'excersises' %}">Cwiczenia</a>
+<div class="card text-center">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <div class="card-header">
+                <div class="card-title d-grid"><button class="btn btn-outline-info shadow-lg disabled">Moje rezerwacje</button></div>
+            </div>
+            
+            <div class="card-body shadow-lg">
+                {% for ev in my_events %}
+                <div class="card border-info">
+                    <div class="card-footer">{{ ev.start_time }}</div>
+                    <div class="card-body">{{ ev.get_place_display }} {{ ev.get_table_display }}</div>
+                    <div class="card-footer d-grid"><a class="btn btn-sm btn-outline-info" href="{% url 'event_edit' event_id=ev.pk %}">Edytuj</a></div>
+                </div>
+                {% endfor %}
+                <br>
+                <div class="card-footer">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            {% if my_events.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page=1">Pierwszy</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{ my_events.previous_page_number }}">&laquo</a></li>
+                            {% endif %}
+                            <li class="page-item"><a class="page-link disabled" href="#">{{ my_events.number }} z {{ my_events.paginator.num_pages }}</a></li>
+                            {% if my_events.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ my_events.next_page_number }}">&raquo</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{ my_events.paginator.num_pages }}">Ostatni</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+          
+        </div>
+        <div class="col-md-8">
+            <div class="card-header shadow-lg">
+                <div class="card-title d-grid"><a href="{% url 'edit_profile' %}" class="btn btn-outline-info shadow-lg">Edytuj Profil</a></div>
+            </div>
+
+            <div class="card-body shadow-lg">
+
+                <img src="{{ user.profile.image.url }}" class="card-img-top rounded" alt="default_avatar" style="height: auto; width: 20%;">
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Imie: {{ user.first_name }}</li>
+                    <li class="list-group-item">Nazwisko: {{ user.last_name }}</li>
+                    <li class="list-group-item"><strong>Urzytkownik:</strong> {{ user.username }}</li>
+                    <li class="list-group-item">Email: {{ user.email }}</li>
+                    <li class="list-group-item">Numer ID: {{ user.id }}</li>
+                    <li class="list-group-item">Dolaczyl: {{ user.date_joined }}</li>
+                    <li class="list-group-item">Ostatnio zalogowany: {{ user.last_login }}</li>
+                    <li class="list-group-item">KOD: {{user.profile.user_code}}</li>
+                    <li class="list-group-item">Telefon: {{user.profile.phone_number}}</li>
+                </ul>
+
+            </div>
+            <div class="card-footer text-body-secondary d-grid">
+                <div class="btn-group">
+                <a class="btn btn-outline-secondary" href="{% url 'default_table' %}">Tabele</a>
+                <a class="btn btn-outline-secondary" href="{% url 'stats' %}">Statystyki</a>
+                <a class="btn btn-outline-secondary" href="{% url 'excersises' %}">Cwiczenia</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

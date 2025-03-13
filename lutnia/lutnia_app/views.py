@@ -14,9 +14,12 @@ from django.views.generic import TemplateView
 from django.utils.timezone import make_naive
 from . forms import *
 from django.utils import timezone
+from django.core.paginator import Paginator
 
 def homepage(request):
-    return render(request, 'lutnia_app/index.html')
+    rok = datetime.today().strftime("%Y")
+    miesiac = datetime.today().strftime("%m")
+    return render(request, 'lutnia_app/index.html', {'year': rok, 'month': miesiac,})
 
 def youtube(request):
     form = YTVideoForm()
@@ -65,7 +68,12 @@ def user_logout(request):
 
 @login_required(login_url="my_login")
 def profile(request):
-    return render(request, 'lutnia_app/profile.html')
+    my_events = Event.objects.filter(user=request.user).order_by('-start_time')
+    pag = Paginator(my_events, 3)
+    page = request.GET.get('page')
+    event_list = pag.get_page(page)
+    context = {'my_events': event_list}
+    return render(request, 'lutnia_app/profile.html', context=context)
 
 @login_required(login_url="my_login")
 def edit_profile(request):
